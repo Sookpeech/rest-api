@@ -1,6 +1,8 @@
 package com.sookpeech.restapi.domain.practices;
 
 import com.sookpeech.restapi.domain.BaseTimeEntity;
+import com.sookpeech.restapi.domain.analysis.Analysis;
+import com.sookpeech.restapi.domain.analysis.State;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,14 +25,21 @@ public class Practices extends BaseTimeEntity {
     private String videoPath;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "scope")
+    @Column(name = "scope", nullable = false)
     private Scope scope;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "analysis_id", nullable = false)
+    private Analysis analysis;
 
     @Builder
     public Practices(String title, String videoPath, Scope scope){
         this.title = title;
         this.videoPath = videoPath;
         this.scope = scope;
+        this.analysis = Analysis.builder()
+                .state(State.INCOMPLETE)
+                .build();
     }
 
     public void update(String title, Scope scope){

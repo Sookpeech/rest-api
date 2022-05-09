@@ -28,15 +28,20 @@ public class Practices extends BaseTimeEntity {
     @Column(name = "scope", nullable = false)
     private Scope scope;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sort", nullable = false)
+    private Sort sort;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "analysis_id", nullable = false)
     private Analysis analysis;
 
     @Builder
-    public Practices(String title, String videoPath, Scope scope){
+    public Practices(String title, String videoPath, Scope scope, Sort sort){
         this.title = title;
         this.videoPath = videoPath;
         this.scope = scope;
+        this.sort = sort;
         this.analysis = Analysis.builder()
                 .state(State.INCOMPLETE)
                 .build();

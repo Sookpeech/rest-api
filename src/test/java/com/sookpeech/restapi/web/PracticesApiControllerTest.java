@@ -3,6 +3,7 @@ package com.sookpeech.restapi.web;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
 import com.sookpeech.restapi.domain.practices.Scope;
+import com.sookpeech.restapi.domain.practices.Sort;
 import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
@@ -48,6 +49,7 @@ public class PracticesApiControllerTest {
                 .title(title)
                 .videoPath(videoPath)
                 .scope(Scope.PRIVATE)
+                .sort(Sort.OFFLINE)
                 .build();
 
         String url = "http://localhost:"+port+"/api/practices";
@@ -62,6 +64,7 @@ public class PracticesApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getVideoPath()).isEqualTo(videoPath);
         assertThat(all.get(0).getScope()).isEqualTo(Scope.PRIVATE);
+        assertThat(all.get(0).getSort().toString()).isEqualTo("OFFLINE");
     }
 
     @Test
@@ -71,6 +74,7 @@ public class PracticesApiControllerTest {
                 .title("title")
                 .videoPath("path_for_video")
                 .scope(Scope.PRIVATE)
+                .sort(Sort.ONLINE)
                 .build());
 
         Long updateId = savedPractices.getId();
@@ -104,6 +108,7 @@ public class PracticesApiControllerTest {
                 .title("title")
                 .videoPath("path_for_video")
                 .scope(Scope.PRIVATE)
+                .sort(Sort.ONLINE)
                 .build());
 
         Long updateId = savedPractices.getId();

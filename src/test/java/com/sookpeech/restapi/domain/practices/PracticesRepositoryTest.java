@@ -1,9 +1,6 @@
-package com.sookpeech.restapi.domain.post;
+package com.sookpeech.restapi.domain.practices;
 
 import com.sookpeech.restapi.domain.analysis.State;
-import com.sookpeech.restapi.domain.practices.Practices;
-import com.sookpeech.restapi.domain.practices.PracticesRepository;
-import com.sookpeech.restapi.domain.practices.Scope;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,7 @@ public class PracticesRepositoryTest {
                 .title(title)
                 .videoPath(videoPath)
                 .scope(Scope.PRIVATE)
+                .sort(Sort.OFFLINE)
                 .build());
 
         //when
@@ -46,6 +44,7 @@ public class PracticesRepositoryTest {
         assertThat(practices.getTitle()).isEqualTo(title);
         assertThat(practices.getVideoPath()).isEqualTo(videoPath);
         assertThat(practices.getScope()).isEqualTo(Scope.PRIVATE);
+        assertThat(practices.getSort()).isEqualTo(Sort.OFFLINE);
         // analysis check
         assertThat(practices.getAnalysis().getState()).isEqualTo(State.INCOMPLETE);
         //analysisContent check
@@ -60,6 +59,7 @@ public class PracticesRepositoryTest {
                 .title("title")
                 .videoPath("path")
                 .scope(Scope.PRIVATE)
+                .sort(Sort.ONLINE)
                 .build());
 
         //when

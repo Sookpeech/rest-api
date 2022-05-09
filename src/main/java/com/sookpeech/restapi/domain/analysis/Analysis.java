@@ -17,6 +17,7 @@ public class Analysis extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
     private State state;
 

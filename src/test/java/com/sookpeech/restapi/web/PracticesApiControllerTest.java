@@ -1,10 +1,9 @@
 package com.sookpeech.restapi.web;
 
-import com.sookpeech.restapi.domain.analysis.State;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
 import com.sookpeech.restapi.domain.practices.Scope;
-import com.sookpeech.restapi.web.dto.analysis.AnalysisUpdateRequestDto;
+import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
 import org.junit.jupiter.api.AfterEach;
@@ -109,15 +108,28 @@ public class PracticesApiControllerTest {
 
         Long updateId = savedPractices.getId();
         String expectedState = "COMPLETE";
+        String expectedIntegration = "종합평가입니다.";
+        String expectedMovement = "움직임과 제스처입니다.";
+        String expectedPosture = "전반적인 자세입니다.";
+        String expectedSpeed = "말하기 속도입니다.";
+        String expectedVolume = "목소리 크기 변화율입니다.";
+        String expectedTone = "목소리 높낮이 변화율입니다.";
+        String expectedClosing = "맺음말 분석 결과입니다.";
 
-        AnalysisUpdateRequestDto requestDto = AnalysisUpdateRequestDto.builder()
-                .state(State.COMPLETE)
+        AnalysisContentsUpdateRequestDto requestDto = AnalysisContentsUpdateRequestDto.builder()
+                .integration(expectedIntegration)
+                .movement(expectedMovement)
+                .posture(expectedPosture)
+                .speed(expectedSpeed)
+                .volume(expectedVolume)
+                .tone(expectedTone)
+                .closing(expectedClosing)
                 .build();
+
 
         String url = "http://localhost:"+port+"/api/practices/analysis_complete/"+updateId;
 
-        HttpEntity<AnalysisUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
-
+        HttpEntity<AnalysisContentsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Long.class );
@@ -126,6 +138,15 @@ public class PracticesApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
         List<Practices> all = practicesRepository.findAll();
+        // analysisContent check
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getIntegration()).isEqualTo(expectedIntegration);
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getMovement()).isEqualTo(expectedMovement);
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getPosture()).isEqualTo(expectedPosture);
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getSpeed()).isEqualTo(expectedSpeed);
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getVolume()).isEqualTo(expectedVolume);
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getTone()).isEqualTo(expectedTone);
+        assertThat(all.get(0).getAnalysis().getAnalysisContents().getClosing()).isEqualTo(expectedClosing);
+        //analysis state check
         assertThat(all.get(0).getAnalysis().getState().toString()).isEqualTo(expectedState);
     }
 }

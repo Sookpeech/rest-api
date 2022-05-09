@@ -1,6 +1,5 @@
 package com.sookpeech.restapi.domain.post;
 
-import com.sookpeech.restapi.domain.analysis.Analysis;
 import com.sookpeech.restapi.domain.analysis.State;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
@@ -47,7 +46,10 @@ public class PracticesRepositoryTest {
         assertThat(practices.getTitle()).isEqualTo(title);
         assertThat(practices.getVideoPath()).isEqualTo(videoPath);
         assertThat(practices.getScope()).isEqualTo(Scope.PRIVATE);
+        // analysis check
         assertThat(practices.getAnalysis().getState()).isEqualTo(State.INCOMPLETE);
+        //analysisContent check
+        assertThat(practices.getAnalysis().getAnalysisContents().getIntegration()).isEqualTo(null);
     }
 
     @Test

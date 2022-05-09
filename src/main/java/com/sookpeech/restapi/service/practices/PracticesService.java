@@ -1,9 +1,11 @@
 package com.sookpeech.restapi.service.practices;
 
 import com.sookpeech.restapi.domain.analysis.Analysis;
+import com.sookpeech.restapi.domain.analysis.State;
+import com.sookpeech.restapi.domain.analysisContents.AnalysisContents;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
-import com.sookpeech.restapi.web.dto.analysis.AnalysisUpdateRequestDto;
+import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesResponseDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
@@ -32,12 +34,25 @@ public class PracticesService {
     }
 
     @Transactional
-    public Long changeState(Long id, AnalysisUpdateRequestDto requestDto){
+    public Long changeState(Long id, AnalysisContentsUpdateRequestDto requestDto){
         Practices practices = practicesRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 연습이 없습니다. id="+id));
 
+        // analysisContent update
         Analysis analysis = practices.getAnalysis();
-        analysis.update(requestDto.getState());
+        AnalysisContents analysisContents = analysis.getAnalysisContents();
+        analysisContents.update(
+                requestDto.getIntegration(),
+                requestDto.getMovement(),
+                requestDto.getPosture(),
+                requestDto.getSpeed(),
+                requestDto.getVolume(),
+                requestDto.getTone(),
+                requestDto.getClosing()
+        );
+
+        // analysis state update
+        analysis.update(State.COMPLETE);
 
         return id;
     }

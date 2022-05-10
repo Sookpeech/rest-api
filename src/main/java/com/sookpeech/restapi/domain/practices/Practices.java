@@ -18,7 +18,7 @@ public class Practices extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title", length = 15, nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "video_path", nullable = false)

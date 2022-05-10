@@ -1,12 +1,13 @@
 package com.sookpeech.restapi.web;
 
-import com.sookpeech.restapi.domain.posts.Posts;
-import com.sookpeech.restapi.domain.posts.PostsRepository;
+import com.sookpeech.restapi.domain.feedbacks.Feedbacks;
+import com.sookpeech.restapi.domain.feedbacks.FeedbacksRepository;
+import com.sookpeech.restapi.domain.feedbacks.Initiator;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
 import com.sookpeech.restapi.domain.practices.Scope;
 import com.sookpeech.restapi.domain.practices.Sort;
-import com.sookpeech.restapi.web.dto.posts.PostsSaveRequestDto;
+import com.sookpeech.restapi.web.dto.feedbacks.FeedbacksSaveRequestDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class PostsApiControllerTest {
+public class FeedbacksApiControllerTest {
     @LocalServerPort
     private int port;
 
@@ -31,23 +32,20 @@ public class PostsApiControllerTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private PostsRepository postsRepository;
+    private FeedbacksRepository feedbacksRepository;
 
     @Autowired
     private PracticesRepository practicesRepository;
 
     @AfterEach
-    public void tearDown() throws Exception{
-        postsRepository.deleteAll();
+    public void cleanup() throws Exception{
+        feedbacksRepository.deleteAll();
         practicesRepository.deleteAll();
     }
 
     @Test
-    public void setPosts() throws Exception{
+    public void setFeedbacks() throws Exception{
         //given
-        String title = "title";
-        String content = "content";
-
         practicesRepository.save(Practices.builder()
                 .title("title")
                 .videoPath("video_path")
@@ -56,13 +54,18 @@ public class PostsApiControllerTest {
                 .build());
 
         Practices practices = practicesRepository.findAll().get(0);
-        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
-                .title(title)
-                .content(content)
+        FeedbacksSaveRequestDto requestDto = FeedbacksSaveRequestDto.builder()
+                .initiator(Initiator.FRIEND)
+                .speed_score(4)
+                .speed_comment("말 빠르기 코멘트입니다.")
+                .tone_score(3)
+                .tone_comment("목소리 변화율 코멘트입니다.")
+                .closing_score(5)
+                .closing_comment("맺음말 평가 코멘트입니다.")
                 .practice_id(practices.getId())
                 .build();
 
-        String url = "http://localhost:"+port+"/api/posts";
+        String url = "http://localhost:"+port+"/api/feedbacks";
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
@@ -70,9 +73,10 @@ public class PostsApiControllerTest {
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
-        List<Posts> all = postsRepository.findAll();
-        assertThat(all.get(0).getTitle()).isEqualTo(title);
-        assertThat(all.get(0).getContent()).isEqualTo(content);
+        List<Feedbacks> all = feedbacksRepository.findAll();
+        assertThat(all.get(0).getInitiator()).isEqualTo(Initiator.FRIEND);
+        assertThat(all.get(0).getTone_score()).isEqualTo(3);
+        assertThat(all.get(0).getClosing_comment()).isEqualTo("맺음말 평가 코멘트입니다.");
         assertThat(all.get(0).getPractices().getId()).isEqualTo(practices.getId());
     }
 }

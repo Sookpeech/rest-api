@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
+
     @Autowired
     PracticesRepository practicesRepository;
 

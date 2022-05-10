@@ -26,7 +26,7 @@ public class Analysis extends BaseTimeEntity {
     private AnalysisContents analysisContents;
 
     @Builder
-    public Analysis(State state, AnalysisContents analysisContents){
+    public Analysis(State state){
         this.state = state;
         this.analysisContents = AnalysisContents.builder().build();
     }

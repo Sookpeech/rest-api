@@ -3,6 +3,7 @@ package com.sookpeech.restapi.web.dto.feedbacks;
 import com.sookpeech.restapi.domain.feedbacks.Feedbacks;
 import com.sookpeech.restapi.domain.feedbacks.Initiator;
 import com.sookpeech.restapi.domain.practices.Practices;
+import com.sookpeech.restapi.domain.users.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,10 @@ public class FeedbacksSaveRequestDto {
     private int closing_score;
     private String closing_comment;
     private Long practice_id;
+    private Long user_id;
 
     @Builder
-    public FeedbacksSaveRequestDto(Initiator initiator, int speed_score, String speed_comment, int tone_score, String tone_comment, int closing_score, String closing_comment, Long practice_id){
+    public FeedbacksSaveRequestDto(Initiator initiator, int speed_score, String speed_comment, int tone_score, String tone_comment, int closing_score, String closing_comment, Long practice_id, Long user_id){
         this.initiator = initiator;
         this.speed_score = speed_score;
         this.speed_comment = speed_comment;
@@ -29,9 +31,10 @@ public class FeedbacksSaveRequestDto {
         this.closing_score = closing_score;
         this.closing_comment = closing_comment;
         this.practice_id = practice_id;
+        this.user_id = user_id;
     }
 
-    public Feedbacks toEntity(Practices practices){
+    public Feedbacks toEntity(Practices practices, Users users){
         return Feedbacks.builder()
                 .initiator(initiator)
                 .speed_score(speed_score)
@@ -41,6 +44,7 @@ public class FeedbacksSaveRequestDto {
                 .closing_score(closing_score)
                 .closing_comment(closing_comment)
                 .practices(practices)
+                .users(users)
                 .build();
     }
 }

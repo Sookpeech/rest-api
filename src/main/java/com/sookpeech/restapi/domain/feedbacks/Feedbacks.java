@@ -2,6 +2,7 @@ package com.sookpeech.restapi.domain.feedbacks;
 
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.practices.Practices;
+import com.sookpeech.restapi.domain.users.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,8 +44,13 @@ public class Feedbacks extends BaseTimeEntity {
     @JoinColumn(name = "practice_id", nullable = false)
     private Practices practices;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users users;
+
     @Builder
-    public Feedbacks(Initiator initiator, int speed_score, String speed_comment, int tone_score, String tone_comment, int closing_score, String closing_comment, Practices practices){
+    public Feedbacks(Initiator initiator, int speed_score, String speed_comment, int tone_score, String tone_comment, int closing_score, String closing_comment, Practices practices, Users users){
+        this.users = users;
         this.initiator = initiator;
         this.speed_score = speed_score;
         this.speed_comment = speed_comment;

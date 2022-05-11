@@ -3,6 +3,7 @@ package com.sookpeech.restapi.domain.practices;
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.analysis.Analysis;
 import com.sookpeech.restapi.domain.analysis.State;
+import com.sookpeech.restapi.domain.users.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,8 +40,12 @@ public class Practices extends BaseTimeEntity {
     @JoinColumn(name = "analysis_id", nullable = false)
     private Analysis analysis;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users users;
+
     @Builder
-    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort){
+    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Users users){
         this.title = title;
         this.audioPath = audioPath;
         this.sensitivity = sensitivity;
@@ -49,6 +54,7 @@ public class Practices extends BaseTimeEntity {
         this.analysis = Analysis.builder()
                 .state(State.INCOMPLETE)
                 .build();
+        this.users = users;
     }
 
     public void update(String title, Scope scope){

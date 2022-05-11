@@ -35,7 +35,8 @@ public class FeedbacksRepositoryTest {
         //given
         practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("videoPath")
+                .audioPath("audioPath")
+                .sensitivity(6)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.OFFLINE)
                 .build());
@@ -81,21 +82,24 @@ public class FeedbacksRepositoryTest {
         //given
         practicesRepository.save(Practices.builder()
                 .title("title1")
-                .videoPath("videoPath1")
+                .audioPath("audioPath1")
+                .sensitivity(6)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.OFFLINE)
                 .build());
 
         practicesRepository.save(Practices.builder()
                 .title("title2")
-                .videoPath("videoPath2")
+                .audioPath("audioPath2")
+                .sensitivity(8)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.OFFLINE)
                 .build());
 
         practicesRepository.save(Practices.builder()
                 .title("title3")
-                .videoPath("videoPath3")
+                .audioPath("audioPath3")
+                .sensitivity(10)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.ONLINE)
                 .build());

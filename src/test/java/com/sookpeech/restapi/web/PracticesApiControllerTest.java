@@ -44,10 +44,11 @@ public class PracticesApiControllerTest {
     public void setPractices() throws Exception{
         //given
         String title = "title";
-        String videoPath = "path_for_video";
+        String audioPath = "path_for_audio";
         PracticesSaveRequestDto requestDto = PracticesSaveRequestDto.builder()
                 .title(title)
-                .videoPath(videoPath)
+                .audioPath(audioPath)
+                .sensitivity(10)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.OFFLINE)
                 .build();
@@ -62,7 +63,8 @@ public class PracticesApiControllerTest {
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
         List<Practices> all = practicesRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
-        assertThat(all.get(0).getVideoPath()).isEqualTo(videoPath);
+        assertThat(all.get(0).getAudioPath()).isEqualTo(audioPath);
+        assertThat(all.get(0).getSensitivity()).isEqualTo(10);
         assertThat(all.get(0).getScope()).isEqualTo(Scope.PRIVATE);
         assertThat(all.get(0).getSort().toString()).isEqualTo("OFFLINE");
     }
@@ -72,7 +74,8 @@ public class PracticesApiControllerTest {
         //given
         Practices savedPractices = practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("path_for_video")
+                .audioPath("path_for_audio")
+                .sensitivity(8)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.ONLINE)
                 .build());
@@ -106,7 +109,8 @@ public class PracticesApiControllerTest {
         //given
         Practices savedPractices = practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("path_for_video")
+                .audioPath("path_for_audio")
+                .sensitivity(7)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.ONLINE)
                 .build());

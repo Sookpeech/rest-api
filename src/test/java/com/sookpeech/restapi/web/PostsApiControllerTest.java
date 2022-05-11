@@ -50,7 +50,8 @@ public class PostsApiControllerTest {
 
         practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("video_path")
+                .audioPath("audio_path")
+                .sensitivity(2)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.ONLINE)
                 .build());

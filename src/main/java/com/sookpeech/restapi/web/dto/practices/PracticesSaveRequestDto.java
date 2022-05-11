@@ -11,14 +11,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PracticesSaveRequestDto {
     private String title;
-    private String videoPath;
+    private String audioPath;
+    private int sensitivity;
     private Scope scope;
     private Sort sort;
 
     @Builder
-    public PracticesSaveRequestDto(String title, String videoPath, Scope scope, Sort sort){
+    public PracticesSaveRequestDto(String title, String audioPath, int sensitivity, Scope scope, Sort sort){
         this.title = title;
-        this.videoPath = videoPath;
+        this.audioPath = audioPath;
+        this.sensitivity = sensitivity;
         this.scope = scope;
         this.sort = sort;
     }
@@ -26,7 +28,8 @@ public class PracticesSaveRequestDto {
     public Practices toEntity(){
         return Practices.builder()
                 .title(title)
-                .videoPath(videoPath)
+                .audioPath(audioPath)
+                .sensitivity(sensitivity)
                 .scope(scope)
                 .sort(sort)
                 .build();

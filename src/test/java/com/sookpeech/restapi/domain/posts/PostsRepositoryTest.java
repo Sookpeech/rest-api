@@ -35,7 +35,8 @@ public class PostsRepositoryTest {
         //given
         practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("videoPath")
+                .audioPath("audioPath")
+                .sensitivity(4)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.OFFLINE)
                 .build());

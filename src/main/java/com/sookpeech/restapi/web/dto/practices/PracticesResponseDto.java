@@ -10,7 +10,8 @@ import lombok.Getter;
 public class PracticesResponseDto {
     private Long id;
     private String title;
-    private String videoPath;
+    private String audioPath;
+    private int sensitivity;
     private Scope scope;
     private Sort sort;
     private Analysis analysis;
@@ -18,7 +19,8 @@ public class PracticesResponseDto {
     public PracticesResponseDto(Practices entity){
         this.id = entity.getId();
         this.title = entity.getTitle();
-        this.videoPath = entity.getVideoPath();
+        this.sensitivity = entity.getSensitivity();
+        this.audioPath = entity.getAudioPath();
         this.scope = entity.getScope();
         this.sort = entity.getSort();
         this.analysis = entity.getAnalysis();

@@ -48,7 +48,8 @@ public class FeedbacksApiControllerTest {
         //given
         practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("video_path")
+                .audioPath("audio_path")
+                .sensitivity(9)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.ONLINE)
                 .build());

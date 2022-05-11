@@ -31,7 +31,8 @@ public class PracticesRepositoryTest {
 
         practicesRepository.save(Practices.builder()
                 .title(title)
-                .videoPath(videoPath)
+                .audioPath("audioPath")
+                .sensitivity(6)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.OFFLINE)
                 .build());
@@ -42,7 +43,7 @@ public class PracticesRepositoryTest {
         //then
         Practices practices = practicesList.get(0);
         assertThat(practices.getTitle()).isEqualTo(title);
-        assertThat(practices.getVideoPath()).isEqualTo(videoPath);
+        assertThat(practices.getAudioPath()).isEqualTo(videoPath);
         assertThat(practices.getScope()).isEqualTo(Scope.PRIVATE);
         assertThat(practices.getSort()).isEqualTo(Sort.OFFLINE);
         // analysis check
@@ -57,7 +58,8 @@ public class PracticesRepositoryTest {
         LocalDateTime now = LocalDateTime.of(2022, 5, 9, 0, 0, 0);
         practicesRepository.save(Practices.builder()
                 .title("title")
-                .videoPath("path")
+                .audioPath("path")
+                .sensitivity(6)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.ONLINE)
                 .build());

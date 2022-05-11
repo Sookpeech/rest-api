@@ -8,8 +8,6 @@ import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
 public class PracticesApiController {

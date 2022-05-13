@@ -16,26 +16,26 @@ public class PracticesSaveRequestDto {
     private int sensitivity;
     private Scope scope;
     private Sort sort;
-    private Long user_id;
+//    private Long user_id;
 
     @Builder
-    public PracticesSaveRequestDto(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Long user_id){
+    public PracticesSaveRequestDto(String title, String audioPath, int sensitivity, Scope scope, Sort sort){
         this.title = title;
         this.audioPath = audioPath;
         this.sensitivity = sensitivity;
         this.scope = scope;
         this.sort = sort;
-        this.user_id = user_id;
+//        this.user_id = user_id;
     }
 
-    public Practices toEntity(Users users){
+    public Practices toEntity(){
         return Practices.builder()
                 .title(title)
                 .audioPath(audioPath)
                 .sensitivity(sensitivity)
                 .scope(scope)
                 .sort(sort)
-                .users(users)
+//                .users(users)
                 .build();
     }
 }

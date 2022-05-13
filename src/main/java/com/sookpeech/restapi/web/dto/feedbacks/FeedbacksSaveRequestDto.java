@@ -31,10 +31,10 @@ public class FeedbacksSaveRequestDto {
         this.closing_score = closing_score;
         this.closing_comment = closing_comment;
         this.practice_id = practice_id;
-        this.user_id = user_id;
+//        this.user_id = user_id;
     }
 
-    public Feedbacks toEntity(Practices practices, Users users){
+    public Feedbacks toEntity(Practices practices){
         return Feedbacks.builder()
                 .initiator(initiator)
                 .speed_score(speed_score)
@@ -44,7 +44,7 @@ public class FeedbacksSaveRequestDto {
                 .closing_score(closing_score)
                 .closing_comment(closing_comment)
                 .practices(practices)
-                .users(users)
+//                .users(users)
                 .build();
     }
 }

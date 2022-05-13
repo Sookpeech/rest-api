@@ -14,22 +14,22 @@ public class PostsSaveRequestDto {
     private String title;
     private String content;
     private Long practice_id;
-    private Long user_id;
+//    private Long user_id;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, Long practice_id, Long user_id){
+    public PostsSaveRequestDto(String title, String content, Long practice_id){
         this.title = title;
         this.content = content;
         this.practice_id = practice_id;
-        this.user_id = user_id;
+//        this.user_id = user_id;
     }
 
-    public Posts toEntity(Practices practices, Users users){
+    public Posts toEntity(Practices practices){
         return Posts.builder()
                 .title(title)
                 .content(content)
                 .practices(practices)
-                .users(users)
+//                .users(users)
                 .build();
     }
 }

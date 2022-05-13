@@ -18,48 +18,48 @@ import static org.assertj.core.api.Assertions.assertThat;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 public class PostsRepositoryTest {
-    @Autowired
-    PostsRepository postsRepository;
-
-    @Autowired
-    PracticesRepository practicesRepository;
-
-    @AfterEach
-    public void cleanup(){
-        postsRepository.deleteAll();
-        practicesRepository.deleteAll();
-    }
-
-    @Test
-    public void getPosts(){
-        //given
-        practicesRepository.save(Practices.builder()
-                .title("title")
-                .audioPath("audioPath")
-                .sensitivity(4)
-                .scope(Scope.PUBLIC)
-                .sort(Sort.OFFLINE)
-                .build());
-
-        String title = "게시글 제목";
-        String content = "게시글 본문";
-        Practices savedPractice = practicesRepository.findAll().get(0);
-
-        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
-                .title(title)
-                .content(content)
-                .practice_id(savedPractice.getId())
-                .build();
-
-        postsRepository.save(requestDto.toEntity(savedPractice));
-
-        //when
-        List<Posts> postsList = postsRepository.findAll();
-
-        //then
-        Posts posts = postsList.get(0);
-        assertThat(posts.getTitle()).isEqualTo(title);
-        assertThat(posts.getContent()).isEqualTo(content);
-        assertThat(posts.getPractices().getId()).isEqualTo(savedPractice.getId());
-    }
+//    @Autowired
+//    PostsRepository postsRepository;
+//
+//    @Autowired
+//    PracticesRepository practicesRepository;
+//
+//    @AfterEach
+//    public void cleanup(){
+//        postsRepository.deleteAll();
+//        practicesRepository.deleteAll();
+//    }
+//
+//    @Test
+//    public void getPosts(){
+//        //given
+//        practicesRepository.save(Practices.builder()
+//                .title("title")
+//                .audioPath("audioPath")
+//                .sensitivity(4)
+//                .scope(Scope.PUBLIC)
+//                .sort(Sort.OFFLINE)
+//                .build());
+//
+//        String title = "게시글 제목";
+//        String content = "게시글 본문";
+//        Practices savedPractice = practicesRepository.findAll().get(0);
+//
+//        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
+//                .title(title)
+//                .content(content)
+//                .practice_id(savedPractice.getId())
+//                .build();
+//
+//        postsRepository.save(requestDto.toEntity(savedPractice));
+//
+//        //when
+//        List<Posts> postsList = postsRepository.findAll();
+//
+//        //then
+//        Posts posts = postsList.get(0);
+//        assertThat(posts.getTitle()).isEqualTo(title);
+//        assertThat(posts.getContent()).isEqualTo(content);
+//        assertThat(posts.getPractices().getId()).isEqualTo(savedPractice.getId());
+//    }
 }

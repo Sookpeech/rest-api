@@ -27,15 +27,15 @@ public class Posts extends BaseTimeEntity {
     @JoinColumn(name = "practice_id", nullable = false)
     private Practices practices;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", nullable = false)
+//    private Users users;
 
     @Builder
-    public Posts(String title, String content, Practices practices, Users users){
+    public Posts(String title, String content, Practices practices){
         this.title = title;
         this.content = content;
         this.practices = practices;
-        this.users = users;
+//        this.users = users;
     }
 }

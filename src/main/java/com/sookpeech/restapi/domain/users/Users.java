@@ -33,36 +33,21 @@ public class Users extends BaseTimeEntity {
     @Column(nullable = false)
     private int point;
 
-    @OneToMany(mappedBy = "users")
-    private List<Practices> practices = new ArrayList<>();
-
-    @OneToMany(mappedBy = "users")
-    private List<Posts> posts = new ArrayList<>();
-
-    @OneToMany(mappedBy = "users")
-    private List<Feedbacks> feedbacks = new ArrayList<>();
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+//    @OneToMany(mappedBy = "users")
+//    private List<Practices> practices = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "users")
+//    private List<Posts> posts = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "users")
+//    private List<Feedbacks> feedbacks = new ArrayList<>();
 
     @Builder
-    public Users(String name, String email, String picture, int point, Role role){
+    public Users(String name, String email, String picture, int point){
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.point = point;
-        this.role = role;
     }
 
-    public Users update(String name, String picture){
-        this.name = name;
-        this.picture = picture;
-
-        return this;
-    }
-
-    public String getRoleKey(){
-        return this.role.getKey();
-    }
 }

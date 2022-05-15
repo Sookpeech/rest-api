@@ -40,12 +40,12 @@ public class Practices extends BaseTimeEntity {
     @JoinColumn(name = "analysis_id", nullable = false)
     private Analysis analysis;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", nullable = false)
+//    private Users users;
 
     @Builder
-    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Users users){
+    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort){
         this.title = title;
         this.audioPath = audioPath;
         this.sensitivity = sensitivity;
@@ -54,7 +54,7 @@ public class Practices extends BaseTimeEntity {
         this.analysis = Analysis.builder()
                 .state(State.INCOMPLETE)
                 .build();
-        this.users = users;
+//        this.users = users;
     }
 
     public void update(String title, Scope scope){

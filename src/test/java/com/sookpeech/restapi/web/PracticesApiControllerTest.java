@@ -1,9 +1,8 @@
 package com.sookpeech.restapi.web;
 
-import com.sookpeech.restapi.domain.practices.Practices;
-import com.sookpeech.restapi.domain.practices.PracticesRepository;
-import com.sookpeech.restapi.domain.practices.Scope;
-import com.sookpeech.restapi.domain.practices.Sort;
+import com.sookpeech.restapi.domain.practices.*;
+import com.sookpeech.restapi.domain.users.Users;
+import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
@@ -35,14 +34,28 @@ public class PracticesApiControllerTest {
     @Autowired
     private PracticesRepository practicesRepository;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     @AfterEach
     public void tearDown() throws Exception{
         practicesRepository.deleteAll();
+        usersRepository.deleteAll();
     }
 
     @Test
     public void setPractices() throws Exception{
         //given
+        usersRepository.save(Users.builder()
+                .googleTokenId("1")
+                .name("testuser")
+                .email("test@gmail.com")
+                .picture("path")
+                .point(0)
+                .build());
+
+        Users savedUser = usersRepository.findAll().get(0);
+
         String title = "title";
         String audioPath = "path_for_audio";
         PracticesSaveRequestDto requestDto = PracticesSaveRequestDto.builder()
@@ -51,6 +64,8 @@ public class PracticesApiControllerTest {
                 .sensitivity(10)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.OFFLINE)
+                .gender(Gender.WOMEN)
+                .user_id(savedUser.getId())
                 .build();
 
         String url = "http://localhost:"+port+"/api/practices";
@@ -67,17 +82,30 @@ public class PracticesApiControllerTest {
         assertThat(all.get(0).getSensitivity()).isEqualTo(10);
         assertThat(all.get(0).getScope()).isEqualTo(Scope.PRIVATE);
         assertThat(all.get(0).getSort().toString()).isEqualTo("OFFLINE");
+        assertThat(all.get(0).getUsers().getName()).isEqualTo("testuser");
     }
 
     @Test
     public void updatePractices() throws Exception{
         //given
+        usersRepository.save(Users.builder()
+                .googleTokenId("1")
+                .name("testuser")
+                .email("test@gmail.com")
+                .picture("path")
+                .point(0)
+                .build());
+
+        Users savedUser = usersRepository.findAll().get(0);
+
         Practices savedPractices = practicesRepository.save(Practices.builder()
                 .title("title")
                 .audioPath("path_for_audio")
                 .sensitivity(8)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.ONLINE)
+                .gender(Gender.WOMEN)
+                .users(savedUser)
                 .build());
 
         Long updateId = savedPractices.getId();
@@ -107,12 +135,24 @@ public class PracticesApiControllerTest {
     @Test
     public void changeState() throws Exception{
         //given
+        usersRepository.save(Users.builder()
+                .googleTokenId("1")
+                .name("testuser")
+                .email("test@gmail.com")
+                .picture("path")
+                .point(0)
+                .build());
+
+        Users savedUser = usersRepository.findAll().get(0);
+
         Practices savedPractices = practicesRepository.save(Practices.builder()
                 .title("title")
                 .audioPath("path_for_audio")
                 .sensitivity(7)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.ONLINE)
+                .gender(Gender.MEN)
+                .users(savedUser)
                 .build());
 
         Long updateId = savedPractices.getId();

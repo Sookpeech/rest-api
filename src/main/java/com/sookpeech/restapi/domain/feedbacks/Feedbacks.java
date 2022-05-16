@@ -46,7 +46,7 @@ public class Feedbacks extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+    private Users users; //피드백 작성자
 
     @Builder
     public Feedbacks(Initiator initiator, int speed_score, String speed_comment, int tone_score, String tone_comment, int closing_score, String closing_comment, Practices practices, Users users){

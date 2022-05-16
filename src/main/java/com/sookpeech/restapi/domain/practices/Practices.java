@@ -36,6 +36,10 @@ public class Practices extends BaseTimeEntity {
     @Column(name = "sort", nullable = false)
     private Sort sort;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "analysis_id", nullable = false)
     private Analysis analysis;
@@ -45,7 +49,7 @@ public class Practices extends BaseTimeEntity {
     private Users users;
 
     @Builder
-    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Users users){
+    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Users users, Gender gender){
         this.title = title;
         this.audioPath = audioPath;
         this.sensitivity = sensitivity;
@@ -55,6 +59,7 @@ public class Practices extends BaseTimeEntity {
                 .state(State.INCOMPLETE)
                 .build();
         this.users = users;
+        this.gender = gender;
     }
 
     public void update(String title, Scope scope){

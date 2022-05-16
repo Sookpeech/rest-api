@@ -4,6 +4,8 @@ import com.sookpeech.restapi.domain.posts.Posts;
 import com.sookpeech.restapi.domain.posts.PostsRepository;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
+import com.sookpeech.restapi.domain.users.Users;
+import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.posts.PostsResponseDto;
 import com.sookpeech.restapi.web.dto.posts.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +24,16 @@ public class PostsService {
     @Autowired
     PracticesRepository practicesRepository;
 
+    @Autowired
+    UsersRepository usersRepository;
+
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
         Practices practices = practicesRepository.findById(requestDto.getPractice_id())
                 .orElseThrow(()->new IllegalArgumentException("해당 연습이 없습니다. id="+requestDto.getPractice_id()));
-        return postsRepository.save(requestDto.toEntity(practices)).getId();
+        Users users = usersRepository.findById(requestDto.getUser_id())
+                .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+requestDto.getUser_id()));
+        return postsRepository.save(requestDto.toEntity(practices, users)).getId();
     }
 
     public PostsResponseDto findById(Long id){
@@ -37,6 +44,7 @@ public class PostsService {
     }
 
     public List<PostsResponseDto> findAll(){
+//        TODO: post 내림차순 정렬
 //        List<Posts> postsList = postsRepository.findAll(Sort.by(Sort.Direction.DESC, "CREATED_DATE"));
         List<Posts> postsList = postsRepository.findAll();
         List<PostsResponseDto> responseDtoList = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.sookpeech.restapi.domain.feedbacks;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.users.Users;
@@ -46,6 +47,7 @@ public class Feedbacks extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private Users users; //피드백 작성자
 
     @Builder

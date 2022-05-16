@@ -1,5 +1,6 @@
 package com.sookpeech.restapi.domain.practices;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.analysis.Analysis;
 import com.sookpeech.restapi.domain.analysis.State;
@@ -46,6 +47,7 @@ public class Practices extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private Users users;
 
     @Builder

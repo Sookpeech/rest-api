@@ -3,10 +3,10 @@ package com.sookpeech.restapi.web;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.sookpeech.restapi.config.auth.LoginService;
 import com.sookpeech.restapi.config.auth.dto.LoginRequestDto;
+import com.sookpeech.restapi.service.users.UsersService;
+import com.sookpeech.restapi.web.dto.users.UsersResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -15,6 +15,7 @@ import java.security.GeneralSecurityException;
 @RestController
 public class UsersApiController {
     private final LoginService loginService;
+    private final UsersService usersService;
 
     @PostMapping("/api/login")
     public LoginRequestDto Login(@RequestBody LoginRequestDto loginRequestDto) throws GeneralSecurityException, IOException {
@@ -33,5 +34,10 @@ public class UsersApiController {
                     .user_id(user_id)
                     .build();
         }
+    }
+
+    @GetMapping("/api/users/{id}")
+    public UsersResponseDto findById(@PathVariable Long id){
+        return usersService.findById(id);
     }
 }

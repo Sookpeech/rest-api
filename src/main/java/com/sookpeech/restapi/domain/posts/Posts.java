@@ -1,5 +1,6 @@
 package com.sookpeech.restapi.domain.posts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.users.Users;
@@ -25,10 +26,12 @@ public class Posts extends BaseTimeEntity {
 
     @OneToOne
     @JoinColumn(name = "practice_id", nullable = false)
+    @JsonIgnore
     private Practices practices;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private Users users; //게시글 작성자
 
     @Builder

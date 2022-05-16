@@ -10,6 +10,7 @@ import com.sookpeech.restapi.web.dto.posts.PostsResponseDto;
 import com.sookpeech.restapi.web.dto.posts.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,9 +45,7 @@ public class PostsService {
     }
 
     public List<PostsResponseDto> findAll(){
-//        TODO: post 내림차순 정렬
-//        List<Posts> postsList = postsRepository.findAll(Sort.by(Sort.Direction.DESC, "CREATED_DATE"));
-        List<Posts> postsList = postsRepository.findAll();
+        List<Posts> postsList = postsRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
         List<PostsResponseDto> responseDtoList = new ArrayList<>();
         for (Posts posts : postsList) {
             responseDtoList.add(new PostsResponseDto(posts));

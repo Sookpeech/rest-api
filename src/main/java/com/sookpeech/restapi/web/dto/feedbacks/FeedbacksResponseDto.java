@@ -15,7 +15,7 @@ public class FeedbacksResponseDto {
     private int closing_score;
     private String closing_comment;
     private Long practice_id;
-//    private Long user_id;
+    private Long user_id;
 
     public FeedbacksResponseDto(Feedbacks entity){
         this.id = entity.getId();
@@ -27,6 +27,6 @@ public class FeedbacksResponseDto {
         this.closing_score = entity.getClosing_score();
         this.closing_comment = entity.getClosing_comment();
         this.practice_id = entity.getPractices().getId();
-//        this.user_id = entity.getUsers().getId();
+        this.user_id = entity.getUsers().getId();
     }
 }

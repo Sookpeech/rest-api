@@ -5,6 +5,8 @@ import com.sookpeech.restapi.domain.feedbacks.FeedbacksRepository;
 import com.sookpeech.restapi.domain.feedbacks.Initiator;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
+import com.sookpeech.restapi.domain.users.Users;
+import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.feedbacks.FeedbacksResponseDto;
 import com.sookpeech.restapi.web.dto.feedbacks.FeedbacksSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +25,16 @@ public class FeedbacksService {
     @Autowired
     PracticesRepository practicesRepository;
 
+    @Autowired
+    UsersRepository usersRepository;
+
     @Transactional
     public Long save(FeedbacksSaveRequestDto requestDto){
         Practices practices = practicesRepository.findById(requestDto.getPractice_id())
                 .orElseThrow(()->new IllegalArgumentException("해당 연습이 없습니다. id="+requestDto.getPractice_id()));
-        return feedbacksRepository.save(requestDto.toEntity(practices)).getId();
+        Users users = usersRepository.findById(requestDto.getUser_id())
+                .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+requestDto.getUser_id()));
+        return feedbacksRepository.save(requestDto.toEntity(practices, users)).getId();
     }
 
     public FeedbacksResponseDto findById(Long id){

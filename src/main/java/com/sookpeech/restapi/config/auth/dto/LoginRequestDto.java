@@ -1,5 +1,6 @@
 package com.sookpeech.restapi.config.auth.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,8 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginRequestDto {
     private String idToken;
+    private Long user_id;
 
-    public LoginRequestDto(String idToken){
+    @Builder
+    public LoginRequestDto(String idToken, Long user_id){
         this.idToken = idToken;
+        this.user_id = user_id;
     }
 }

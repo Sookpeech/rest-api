@@ -1,6 +1,8 @@
 package com.sookpeech.restapi.domain.practices;
 
 import com.sookpeech.restapi.domain.analysis.State;
+import com.sookpeech.restapi.domain.users.Users;
+import com.sookpeech.restapi.domain.users.UsersRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,30 @@ public class PracticesRepositoryTest {
     @Autowired
     PracticesRepository practicesRepository;
 
+    @Autowired
+    UsersRepository usersRepository;
+
     @AfterEach
     public void cleanup(){
         practicesRepository.deleteAll();
+        usersRepository.deleteAll();
     }
 
     @Test
     public void getPractices(){
         //given
         String title = "연습 제목";
-        String videoPath = "비디오주소";
+        String audioPath = "audioPath";
+
+        usersRepository.save(Users.builder()
+                .googleTokenId("1")
+                .name("testuser")
+                .email("test@gmail.com")
+                .picture("path")
+                .point(0)
+                .build());
+
+        Users savedUser = usersRepository.findAll().get(0);
 
         practicesRepository.save(Practices.builder()
                 .title(title)
@@ -35,6 +51,8 @@ public class PracticesRepositoryTest {
                 .sensitivity(6)
                 .scope(Scope.PRIVATE)
                 .sort(Sort.OFFLINE)
+                .gender(Gender.WOMEN)
+                .users(savedUser)
                 .build());
 
         //when
@@ -43,13 +61,14 @@ public class PracticesRepositoryTest {
         //then
         Practices practices = practicesList.get(0);
         assertThat(practices.getTitle()).isEqualTo(title);
-        assertThat(practices.getAudioPath()).isEqualTo(videoPath);
+        assertThat(practices.getAudioPath()).isEqualTo(audioPath);
         assertThat(practices.getScope()).isEqualTo(Scope.PRIVATE);
         assertThat(practices.getSort()).isEqualTo(Sort.OFFLINE);
         // analysis check
         assertThat(practices.getAnalysis().getState()).isEqualTo(State.INCOMPLETE);
         //analysisContent check
         assertThat(practices.getAnalysis().getAnalysisContents().getIntegration()).isEqualTo(null);
+        assertThat(practices.getUsers().getEmail()).isEqualTo("test@gmail.com");
     }
 
     @Test

@@ -2,10 +2,9 @@ package com.sookpeech.restapi.web;
 
 import com.sookpeech.restapi.domain.posts.Posts;
 import com.sookpeech.restapi.domain.posts.PostsRepository;
-import com.sookpeech.restapi.domain.practices.Practices;
-import com.sookpeech.restapi.domain.practices.PracticesRepository;
-import com.sookpeech.restapi.domain.practices.Scope;
-import com.sookpeech.restapi.domain.practices.Sort;
+import com.sookpeech.restapi.domain.practices.*;
+import com.sookpeech.restapi.domain.users.Users;
+import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.posts.PostsSaveRequestDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -36,10 +35,14 @@ public class PostsApiControllerTest {
     @Autowired
     private PracticesRepository practicesRepository;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     @AfterEach
     public void tearDown() throws Exception{
         postsRepository.deleteAll();
         practicesRepository.deleteAll();
+        usersRepository.deleteAll();
     }
 
     @Test
@@ -48,12 +51,24 @@ public class PostsApiControllerTest {
         String title = "title";
         String content = "content";
 
+        usersRepository.save(Users.builder()
+                .googleTokenId("1")
+                .name("testuser")
+                .email("test@gmail.com")
+                .picture("path")
+                .point(0)
+                .build());
+
+        Users savedUser = usersRepository.findAll().get(0);
+
         practicesRepository.save(Practices.builder()
                 .title("title")
                 .audioPath("audio_path")
                 .sensitivity(2)
                 .scope(Scope.PUBLIC)
                 .sort(Sort.ONLINE)
+                .gender(Gender.WOMEN)
+                .users(savedUser)
                 .build());
 
         Practices practices = practicesRepository.findAll().get(0);
@@ -61,6 +76,7 @@ public class PostsApiControllerTest {
                 .title(title)
                 .content(content)
                 .practice_id(practices.getId())
+                .user_id(savedUser.getId())
                 .build();
 
         String url = "http://localhost:"+port+"/api/posts";
@@ -75,5 +91,6 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
         assertThat(all.get(0).getPractices().getId()).isEqualTo(practices.getId());
+        assertThat(all.get(0).getUsers().getGoogleTokenId()).isEqualTo("1");
     }
 }

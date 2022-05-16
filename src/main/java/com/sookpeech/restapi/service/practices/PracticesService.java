@@ -5,11 +5,14 @@ import com.sookpeech.restapi.domain.analysis.State;
 import com.sookpeech.restapi.domain.analysisContents.AnalysisContents;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
+import com.sookpeech.restapi.domain.users.Users;
+import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesResponseDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class PracticesService {
     private final PracticesRepository practicesRepository;
 
+    @Autowired
+    UsersRepository usersRepository;
+
     @Transactional
     public Long save(PracticesSaveRequestDto requestDto){
-        return practicesRepository.save(requestDto.toEntity()).getId();
+        Users users = usersRepository.findById(requestDto.getUser_id())
+                .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+requestDto.getUser_id()));
+        return practicesRepository.save(requestDto.toEntity(users)).getId();
     }
 
     @Transactional

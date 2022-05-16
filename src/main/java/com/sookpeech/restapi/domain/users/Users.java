@@ -21,6 +21,9 @@ public class Users extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "google_id")
+    private String googleTokenId;
+
     @Column(nullable = false)
     private String name;
 
@@ -43,10 +46,12 @@ public class Users extends BaseTimeEntity {
     private List<Feedbacks> feedbacks = new ArrayList<>();
 
     @Builder
-    public Users(String name, String email, String picture, int point){
+    public Users(String name, String email, String picture, int point, String googleTokenId){
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.point = point;
+        this.googleTokenId = googleTokenId;
     }
+
 }

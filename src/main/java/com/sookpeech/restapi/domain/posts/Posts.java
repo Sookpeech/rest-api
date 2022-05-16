@@ -29,7 +29,7 @@ public class Posts extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
+    private Users users; //게시글 작성자
 
     @Builder
     public Posts(String title, String content, Practices practices, Users users){

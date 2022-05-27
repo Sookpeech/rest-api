@@ -2,6 +2,7 @@ package com.sookpeech.restapi.domain.users;
 
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.feedbacks.Feedbacks;
+import com.sookpeech.restapi.domain.friends.Friends;
 import com.sookpeech.restapi.domain.posts.Posts;
 import com.sookpeech.restapi.domain.practices.Practices;
 import lombok.Builder;
@@ -45,6 +46,10 @@ public class Users extends BaseTimeEntity {
     @OneToMany(mappedBy = "users")
     private List<Feedbacks> feedbacks = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "friendlist_id", nullable = false)
+    private Friends friends;
+
     @Builder
     public Users(String name, String email, String picture, int point, String googleTokenId){
         this.name = name;
@@ -52,6 +57,9 @@ public class Users extends BaseTimeEntity {
         this.picture = picture;
         this.point = point;
         this.googleTokenId = googleTokenId;
+        this.practices = new ArrayList<>();
+        this.posts = new ArrayList<>();
+        this.feedbacks = new ArrayList<>();
+        this.friends = Friends.builder().build();
     }
-
 }

@@ -1,6 +1,7 @@
 package com.sookpeech.restapi.web.dto.users;
 
 import com.sookpeech.restapi.domain.feedbacks.Feedbacks;
+import com.sookpeech.restapi.domain.friends.Friends;
 import com.sookpeech.restapi.domain.posts.Posts;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.users.Users;
@@ -17,6 +18,7 @@ public class UsersResponseDto {
     private List<Practices> practices;
     private List<Posts> posts;
     private List<Feedbacks> feedbacks;
+    private Friends friends;
 
     public UsersResponseDto(Users entity){
         this.name = entity.getName();
@@ -26,5 +28,6 @@ public class UsersResponseDto {
         this.practices = entity.getPractices();
         this.posts = entity.getPosts();
         this.feedbacks = entity.getFeedbacks();
+        this.friends = entity.getFriends();
     }
 }

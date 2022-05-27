@@ -46,9 +46,8 @@ public class Users extends BaseTimeEntity {
     @OneToMany(mappedBy = "users")
     private List<Feedbacks> feedbacks = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "friendlist_id", nullable = false)
-    private Friends friends;
+    @OneToMany(mappedBy = "users")
+    private List<Friends> friends = new ArrayList<>();
 
     @Builder
     public Users(String name, String email, String picture, int point, String googleTokenId){
@@ -60,6 +59,6 @@ public class Users extends BaseTimeEntity {
         this.practices = new ArrayList<>();
         this.posts = new ArrayList<>();
         this.feedbacks = new ArrayList<>();
-        this.friends = Friends.builder().build();
+        this.friends = new ArrayList<>();
     }
 }

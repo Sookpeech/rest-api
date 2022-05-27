@@ -18,7 +18,7 @@ public class UsersResponseDto {
     private List<Practices> practices;
     private List<Posts> posts;
     private List<Feedbacks> feedbacks;
-    private Friends friends;
+    private List<Friends> friends;
 
     public UsersResponseDto(Users entity){
         this.name = entity.getName();

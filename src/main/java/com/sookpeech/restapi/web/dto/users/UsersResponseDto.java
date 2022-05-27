@@ -11,6 +11,7 @@ import java.util.List;
 
 @Getter
 public class UsersResponseDto {
+    private Long id;
     private String name;
     private String email;
     private String picture;
@@ -21,6 +22,7 @@ public class UsersResponseDto {
     private List<Friends> friends;
 
     public UsersResponseDto(Users entity){
+        this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.picture = entity.getPicture();

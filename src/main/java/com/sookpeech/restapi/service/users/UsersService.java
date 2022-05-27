@@ -1,5 +1,6 @@
 package com.sookpeech.restapi.service.users;
 
+import com.sookpeech.restapi.domain.friends.FriendsRepository;
 import com.sookpeech.restapi.domain.users.Users;
 import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.users.UsersFindRequestDto;
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
+    private final FriendsRepository friendsRepository;
 
     public UsersResponseDto findById(Long id){
         Users entity = usersRepository.findById(id)
@@ -23,8 +25,8 @@ public class UsersService {
         return new UsersResponseDto(entity);
     }
 
-    @Transactional
     // 사용자 이름 검색 기능
+    @Transactional
     public List<UsersResponseDto> findByNameContaining(UsersFindRequestDto requestDto){
         List<Users> users = usersRepository.findByNameContaining(requestDto.getName());
         List<UsersResponseDto> usersResponseDtos = new ArrayList<>();
@@ -34,7 +36,4 @@ public class UsersService {
 
         return usersResponseDtos;
     }
-
-    // 친구 요청 기능
-    // 친구 코드 확인 = 이메일 아이디 부분 + id
 }

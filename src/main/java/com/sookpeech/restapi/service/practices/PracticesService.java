@@ -3,6 +3,8 @@ package com.sookpeech.restapi.service.practices;
 import com.sookpeech.restapi.domain.analysis.Analysis;
 import com.sookpeech.restapi.domain.analysis.State;
 import com.sookpeech.restapi.domain.analysisContents.AnalysisContents;
+import com.sookpeech.restapi.domain.posts.Posts;
+import com.sookpeech.restapi.domain.posts.PostsRepository;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.PracticesRepository;
 import com.sookpeech.restapi.domain.users.Users;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +30,9 @@ public class PracticesService {
 
     @Autowired
     UsersRepository usersRepository;
+
+    @Autowired
+    PostsRepository postsRepository;
 
     @Transactional
     public Long save(PracticesSaveRequestDto requestDto){
@@ -88,5 +94,18 @@ public class PracticesService {
         }
 
         return responseDtos;
+    }
+
+    @Transactional
+    public Long deleteById(Long id){
+        // 해당 practice의 post가 있는지 확인 후 삭제
+        Practices practices = practicesRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 연습이 없습니다. id="+id));
+
+        Optional<Posts> post = postsRepository.findByPractices(practices);
+        post.ifPresent(posts -> postsRepository.deleteById(posts.getId()));
+        practicesRepository.deleteById(id);
+
+        return id;
     }
 }

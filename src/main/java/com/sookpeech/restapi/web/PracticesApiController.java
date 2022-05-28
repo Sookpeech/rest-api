@@ -44,4 +44,9 @@ public class PracticesApiController {
     public List<PracticesResponseDto> findByTitleContaining(@PathVariable Long id, @RequestBody PracticesFindRequestDto requestDto){
         return practicesService.findByTitleContaining(id, requestDto);
     }
+
+    @DeleteMapping("/api/practices/{id}")
+    public Long delete(@PathVariable Long id){
+        return practicesService.deleteById(id);
+    }
 }

@@ -9,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class FriendsSaveRequestDto {
-    private Long user_id;
     private Long friend_id;
     private String friendCode;
 
     @Builder
-    public FriendsSaveRequestDto(Long user_id, Long friend_id, String friendCode){
-        this.user_id = user_id;
+    public FriendsSaveRequestDto(Long friend_id, String friendCode){
         this.friend_id = friend_id;
         this.friendCode = friendCode;
     }

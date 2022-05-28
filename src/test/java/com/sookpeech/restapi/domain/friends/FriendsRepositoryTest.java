@@ -55,13 +55,12 @@ public class FriendsRepositoryTest {
         Users user2 = usersRepository.findAll().get(1);
 
         FriendsSaveRequestDto requestDto = FriendsSaveRequestDto.builder()
-                .user_id(1L)
                 .friend_id(2L)
                 .friendCode("test22")
                 .build();
 
         //when
-        Long result = friendsService.sendFriendRequest(requestDto);
+        Long result = friendsService.sendFriendRequest(1L, requestDto);
 
         //then
         assertThat(result).isGreaterThan(0L);

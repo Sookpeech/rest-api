@@ -20,9 +20,9 @@ public class FriendsService {
     // 친구 요청 기능
     // 성공 시 요청한 친구의 id 반환, 친구 코드가 일치하지 않을 경우 -1 반환, 이미 친구 추가된 사용자인 경우 -2 반환
     @Transactional
-    public Long sendFriendRequest(FriendsSaveRequestDto requestDto){
-        Users user = usersRepository.findById(requestDto.getUser_id())
-                .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+requestDto.getUser_id()));
+    public Long sendFriendRequest(Long id, FriendsSaveRequestDto requestDto){
+        Users user = usersRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+id));
 
         Users friend = usersRepository.findById(requestDto.getFriend_id())
                 .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+requestDto.getFriend_id()));
@@ -45,7 +45,7 @@ public class FriendsService {
 
         // 2) 친구의 friend list에 현재 사용자의 id 추가
         Friends newone = Friends.builder()
-                .friend_id(user.getId())
+                .friend_id(id)
                 .users(friend)
                 .build();
         friendsRepository.save(newone);

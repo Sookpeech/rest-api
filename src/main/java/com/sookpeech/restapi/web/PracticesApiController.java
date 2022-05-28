@@ -2,11 +2,14 @@ package com.sookpeech.restapi.web;
 
 import com.sookpeech.restapi.service.practices.PracticesService;
 import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
+import com.sookpeech.restapi.web.dto.practices.PracticesFindRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesResponseDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,4 +38,10 @@ public class PracticesApiController {
     public PracticesResponseDto findById(@PathVariable Long id){
         return practicesService.findById(id);
     }
+
+    // title 검색 기능
+//    @GetMapping("/api/practices/search")
+//    public List<PracticesResponseDto> findByTitleContaining(@RequestBody PracticesFindRequestDto requestDto){
+//        return
+//    }
 }

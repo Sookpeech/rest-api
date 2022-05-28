@@ -40,8 +40,8 @@ public class PracticesApiController {
     }
 
     // title 검색 기능
-//    @GetMapping("/api/practices/search")
-//    public List<PracticesResponseDto> findByTitleContaining(@RequestBody PracticesFindRequestDto requestDto){
-//        return
-//    }
+    @GetMapping("/api/practices/search/{id}")
+    public List<PracticesResponseDto> findByTitleContaining(@PathVariable Long id, @RequestBody PracticesFindRequestDto requestDto){
+        return practicesService.findByTitleContaining(id, requestDto);
+    }
 }

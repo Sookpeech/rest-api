@@ -8,6 +8,7 @@ import com.sookpeech.restapi.domain.practices.PracticesRepository;
 import com.sookpeech.restapi.domain.users.Users;
 import com.sookpeech.restapi.domain.users.UsersRepository;
 import com.sookpeech.restapi.web.dto.analysisContents.AnalysisContentsUpdateRequestDto;
+import com.sookpeech.restapi.web.dto.practices.PracticesFindRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesResponseDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesSaveRequestDto;
 import com.sookpeech.restapi.web.dto.practices.PracticesUpdateRequestDto;
@@ -15,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -70,5 +74,19 @@ public class PracticesService {
                 .orElseThrow(()->new IllegalArgumentException("해당 연습이 없습니다. id="+id));
 
         return new PracticesResponseDto(entity);
+    }
+
+    public List<PracticesResponseDto> findByTitleContaining(Long id, PracticesFindRequestDto requestDto){
+        Users user = usersRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 사용자가 없습니다. id="+id));
+        List<Practices> practices = user.getPractices();
+        List<PracticesResponseDto> responseDtos = new ArrayList<>();
+
+        for (Practices p: practices){
+            if (!p.getTitle().contains(requestDto.getTitle())) continue;
+            responseDtos.add(new PracticesResponseDto(p));
+        }
+
+        return responseDtos;
     }
 }

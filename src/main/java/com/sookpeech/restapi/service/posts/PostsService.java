@@ -52,4 +52,11 @@ public class PostsService {
         }
         return responseDtoList;
     }
+
+    @Transactional
+    public Long deleteById(Long id){
+        postsRepository.deleteById(id);
+
+        return id;
+    }
 }

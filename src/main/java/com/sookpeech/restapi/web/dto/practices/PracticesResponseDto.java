@@ -5,7 +5,6 @@ import com.sookpeech.restapi.domain.practices.Gender;
 import com.sookpeech.restapi.domain.practices.Practices;
 import com.sookpeech.restapi.domain.practices.Scope;
 import com.sookpeech.restapi.domain.practices.Sort;
-import com.sookpeech.restapi.domain.users.Users;
 import lombok.Getter;
 
 @Getter

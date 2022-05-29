@@ -25,9 +25,13 @@ public class Friends extends BaseTimeEntity {
     @Column(name = "friend_id")
     private Long friend_id;
 
+    @Column(name = "friend_name")
+    private String friend_name;
+
     @Builder
-    public Friends(Long friend_id, Users users){
+    public Friends(Long friend_id, String friend_name, Users users){
         this.friend_id = friend_id;
+        this.friend_name = friend_name;
         this.users = users;
     }
 }

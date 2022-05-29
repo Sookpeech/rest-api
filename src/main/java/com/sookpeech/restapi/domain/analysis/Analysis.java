@@ -1,5 +1,6 @@
 package com.sookpeech.restapi.domain.analysis;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sookpeech.restapi.domain.BaseTimeEntity;
 import com.sookpeech.restapi.domain.analysisContents.AnalysisContents;
 import lombok.Builder;

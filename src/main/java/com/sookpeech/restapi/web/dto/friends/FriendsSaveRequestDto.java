@@ -18,10 +18,11 @@ public class FriendsSaveRequestDto {
         this.friendCode = friendCode;
     }
 
-    public Friends toEntity(Users users){
+    public Friends toEntity(Users users, String friend_name){
         return Friends.builder()
                 .users(users)
                 .friend_id(friend_id)
+                .friend_name(friend_name)
                 .build();
     }
 }

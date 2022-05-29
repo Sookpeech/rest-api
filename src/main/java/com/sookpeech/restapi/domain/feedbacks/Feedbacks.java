@@ -43,6 +43,7 @@ public class Feedbacks extends BaseTimeEntity {
 
     @OneToOne
     @JoinColumn(name = "practice_id", nullable = false)
+    @JsonIgnore
     private Practices practices;
 
     @ManyToOne

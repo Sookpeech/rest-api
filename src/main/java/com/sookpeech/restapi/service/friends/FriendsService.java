@@ -41,12 +41,13 @@ public class FriendsService {
         }
 
         // 1) 현재 사용자의 friend list에 friend_id 추가
-        friendsRepository.save(requestDto.toEntity(user));
+        friendsRepository.save(requestDto.toEntity(user, friend.getName()));
 
         // 2) 친구의 friend list에 현재 사용자의 id 추가
         Friends newone = Friends.builder()
                 .friend_id(id)
                 .users(friend)
+                .friend_name(user.getName())
                 .build();
         friendsRepository.save(newone);
 

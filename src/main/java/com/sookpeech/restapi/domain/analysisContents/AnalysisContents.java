@@ -16,46 +16,97 @@ public class AnalysisContents extends BaseTimeEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "integration") // 종합평가
-    private String integration;
+    @Column(name = "total_duration")
+    private float total_duration;
 
-    @Column(name = "movement") // 움직임과 제스처(오프라인=제스처, 온라인=얼굴 움직임)
-    private String movement;
+    @Column(name = "inclined_duration")
+    private float inclined_duration;
 
-    @Column(name = "posture") // 전반적인 자세
-    private String posture;
+    @Column(name = "first_duration")
+    private float first_duration;
 
-    @Column(name = "speed") // 말하기 속도
-    private String speed;
+    @Column(name = "second_duration")
+    private float second_duration;
 
-    @Column(name = "volume") // 목소리 크기 변화율
-    private String volume;
+    @Column(name = "third_duration")
+    private float third_duration;
 
-    @Column(name = "tone") // 목소리 높낮이 변화율
-    private String tone;
+    @Column(name = "script_duration")
+    private float script_duration;
 
-    @Column(name = "closing") //맺음말
-    private String closing;
+    @Column(name = "around_duration")
+    private float around_duration;
+
+    @Column(name = "face_move_duration")
+    private float face_move_duration;
+
+    @Column(name = "speed")
+    private float speed;
+
+    @Column(name = "closing_remarks")
+    private float closing_remarks;
+
+    @Column(name = "shimmer")
+    private float shimmer;
+
+    @Column(name = "jitter")
+    private float jitter;
 
     @Builder
-    public AnalysisContents(String integration, String movement, String posture, String speed, String volume, String tone, String closing){
-        this.integration = integration;
-        this.movement = movement;
-        this.posture = posture;
+    public AnalysisContents(
+            float total_duration,
+            float inclined_duration,
+            float first_duration,
+            float second_duration,
+            float third_duration,
+            float script_duration,
+            float around_duration,
+            float face_move_duration,
+            float speed,
+            float closing_remarks,
+            float shimmer,
+            float jitter
+    ){
+        this.total_duration = total_duration;
+        this.inclined_duration = inclined_duration;
+        this.first_duration = first_duration;
+        this.second_duration = second_duration;
+        this.third_duration = third_duration;
+        this.script_duration = script_duration;
+        this.around_duration = around_duration;
+        this.face_move_duration = face_move_duration;
         this.speed = speed;
-        this.volume = volume;
-        this.tone = tone;
-        this.closing = closing;
+        this.closing_remarks = closing_remarks;
+        this.shimmer = shimmer;
+        this.jitter = jitter;
     }
 
-    public void update(String integration, String movement, String posture, String speed, String volume, String tone, String closing){
-        this.integration = integration;
-        this.movement = movement;
-        this.posture = posture;
+    public void update(
+            float total_duration,
+            float inclined_duration,
+            float first_duration,
+            float second_duration,
+            float third_duration,
+            float script_duration,
+            float around_duration,
+            float face_move_duration,
+            float speed,
+            float closing_remarks,
+            float shimmer,
+            float jitter
+    ){
+        this.total_duration = total_duration;
+        this.inclined_duration = inclined_duration;
+        this.first_duration = first_duration;
+        this.second_duration = second_duration;
+        this.third_duration = third_duration;
+        this.script_duration = script_duration;
+        this.around_duration = around_duration;
+        this.face_move_duration = face_move_duration;
         this.speed = speed;
-        this.volume = volume;
-        this.tone = tone;
-        this.closing = closing;
+        this.closing_remarks = closing_remarks;
+        this.shimmer = shimmer;
+        this.jitter = jitter;
     }
 
 }

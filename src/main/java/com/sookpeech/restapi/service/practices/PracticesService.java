@@ -60,13 +60,18 @@ public class PracticesService {
         Analysis analysis = practices.getAnalysis();
         AnalysisContents analysisContents = analysis.getAnalysisContents();
         analysisContents.update(
-                requestDto.getIntegration(),
-                requestDto.getMovement(),
-                requestDto.getPosture(),
+                requestDto.getTotal_duration(),
+                requestDto.getInclined_duration(),
+                requestDto.getFirst_duration(),
+                requestDto.getSecond_duration(),
+                requestDto.getThird_duration(),
+                requestDto.getScript_duration(),
+                requestDto.getAround_duration(),
+                requestDto.getFace_move_duration(),
                 requestDto.getSpeed(),
-                requestDto.getVolume(),
-                requestDto.getTone(),
-                requestDto.getClosing()
+                requestDto.getClosing_remarks(),
+                requestDto.getShimmer(),
+                requestDto.getJitter()
         );
 
         // analysis state update

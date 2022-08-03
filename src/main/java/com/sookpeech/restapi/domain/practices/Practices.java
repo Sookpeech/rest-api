@@ -23,11 +23,11 @@ public class Practices extends BaseTimeEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "video_path", nullable = false)
-    private String audioPath;
+    @Column(name = "move_sensitivity", nullable = false)
+    private int move_sensitivity;
 
-    @Column(name = "sensitivity", nullable = false)
-    private int sensitivity;
+    @Column(name = "eyes_sensitivity", nullable = false)
+    private int eyes_sensitivity;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "scope", nullable = false)
@@ -51,10 +51,10 @@ public class Practices extends BaseTimeEntity {
     private Users users;
 
     @Builder
-    public Practices(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Users users, Gender gender){
+    public Practices(String title, int move_sensitivity, int eyes_sensitivity, Scope scope, Sort sort, Users users, Gender gender){
         this.title = title;
-        this.audioPath = audioPath;
-        this.sensitivity = sensitivity;
+        this.move_sensitivity = move_sensitivity;
+        this.eyes_sensitivity = eyes_sensitivity;
         this.scope = scope;
         this.sort = sort;
         this.analysis = Analysis.builder()

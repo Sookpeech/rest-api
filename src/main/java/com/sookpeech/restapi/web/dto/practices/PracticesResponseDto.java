@@ -11,8 +11,8 @@ import lombok.Getter;
 public class PracticesResponseDto {
     private Long id;
     private String title;
-    private String audioPath;
-    private int sensitivity;
+    private int move_sensitivity;
+    private int eyes_sensitivity;
     private Scope scope;
     private Sort sort;
     private Analysis analysis;
@@ -22,8 +22,8 @@ public class PracticesResponseDto {
     public PracticesResponseDto(Practices entity){
         this.id = entity.getId();
         this.title = entity.getTitle();
-        this.sensitivity = entity.getSensitivity();
-        this.audioPath = entity.getAudioPath();
+        this.move_sensitivity = entity.getMove_sensitivity();
+        this.eyes_sensitivity = entity.getEyes_sensitivity();
         this.scope = entity.getScope();
         this.sort = entity.getSort();
         this.analysis = entity.getAnalysis();

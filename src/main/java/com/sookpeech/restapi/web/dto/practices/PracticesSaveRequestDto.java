@@ -13,18 +13,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PracticesSaveRequestDto {
     private String title;
-    private String audioPath;
-    private int sensitivity;
+    private int move_sensitivity;
+    private int eyes_sensitivity;
     private Scope scope;
     private Sort sort;
     private Long user_id;
     private Gender gender;
 
     @Builder
-    public PracticesSaveRequestDto(String title, String audioPath, int sensitivity, Scope scope, Sort sort, Gender gender, Long user_id){
+    public PracticesSaveRequestDto(String title, int move_sensitivity, int eyes_sensitivity, Scope scope, Sort sort, Gender gender, Long user_id){
         this.title = title;
-        this.audioPath = audioPath;
-        this.sensitivity = sensitivity;
+        this.move_sensitivity = move_sensitivity;
+        this.eyes_sensitivity = eyes_sensitivity;
         this.scope = scope;
         this.sort = sort;
         this.user_id = user_id;
@@ -34,8 +34,8 @@ public class PracticesSaveRequestDto {
     public Practices toEntity(Users users){
         return Practices.builder()
                 .title(title)
-                .audioPath(audioPath)
-                .sensitivity(sensitivity)
+                .move_sensitivity(move_sensitivity)
+                .eyes_sensitivity(eyes_sensitivity)
                 .scope(scope)
                 .sort(sort)
                 .users(users)

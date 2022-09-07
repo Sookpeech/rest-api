@@ -44,7 +44,7 @@ public class UsersApiController {
     }
 
     @GetMapping("/api/users/search")
-    public List<UsersResponseDto> findByNameContaining(@RequestBody UsersFindRequestDto requestDto){
-        return usersService.findByNameContaining(requestDto);
+    public List<UsersResponseDto> findByNameContaining(@RequestParam String name){
+        return usersService.findByNameContaining(name);
     }
 }

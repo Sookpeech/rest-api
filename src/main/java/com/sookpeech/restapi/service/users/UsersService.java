@@ -27,8 +27,8 @@ public class UsersService {
 
     // 사용자 이름 검색 기능
     @Transactional
-    public List<UsersResponseDto> findByNameContaining(UsersFindRequestDto requestDto){
-        List<Users> users = usersRepository.findByNameContaining(requestDto.getName());
+    public List<UsersResponseDto> findByNameContaining(String name){
+        List<Users> users = usersRepository.findByNameContaining(name);
         List<UsersResponseDto> usersResponseDtos = new ArrayList<>();
         for (Users u: users){
             usersResponseDtos.add(new UsersResponseDto(u));

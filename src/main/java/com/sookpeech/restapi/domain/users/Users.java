@@ -61,4 +61,8 @@ public class Users extends BaseTimeEntity {
         this.feedbacks = new ArrayList<>();
         this.friends = new ArrayList<>();
     }
+
+    public void update(int point){
+        this.point = point;
+    }
 }

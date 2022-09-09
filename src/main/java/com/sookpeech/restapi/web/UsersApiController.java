@@ -5,6 +5,7 @@ import com.sookpeech.restapi.config.auth.LoginService;
 import com.sookpeech.restapi.config.auth.dto.LoginRequestDto;
 import com.sookpeech.restapi.service.users.UsersService;
 import com.sookpeech.restapi.web.dto.users.UsersFindRequestDto;
+import com.sookpeech.restapi.web.dto.users.UsersPointRequestDto;
 import com.sookpeech.restapi.web.dto.users.UsersResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,11 @@ public class UsersApiController {
     @GetMapping("/api/users/search")
     public List<UsersResponseDto> findByNameContaining(@RequestParam String name){
         return usersService.findByNameContaining(name);
+    }
+
+    // 포인트 관리
+    @PostMapping("/api/users/point")
+    public Long plusPoint(@RequestBody UsersPointRequestDto requestDto){
+        return usersService.changePoint(requestDto);
     }
 }

@@ -54,7 +54,7 @@ public class LoginService {
                     .name((String)payload.get("name"))
                     .email(payload.getEmail())
                     .picture((String) payload.get("picture"))
-                    .point(0)
+                    .point(30) //처음 가입 시 point 30
                     .build();
 
             System.out.println(">>>>>>>SignIn!");
